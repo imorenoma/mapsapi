@@ -3,6 +3,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 from k8s import credfirestore
 
+
 cred = credfirestore.firebase_cred()
 
 firebase_admin.initialize_app(cred)
@@ -64,11 +65,28 @@ def login():
             response = jsonify({'error': 'User not found'})
             response.status_code = 404
             return response
-    except:
+    except Exception as e:
         response = jsonify({'error':(e)})
         response.status_code = 500
         return response
+    
+@app.route('/logout', methods = [ 'POST' ])
+def  logout():
+    data = request.json
+    id_token=data['id_Token']
 
+    auth = firebase_admin.auth()
+    try:
+        auth.revoke_refresh_tokens(id_token)
+
+        # Return a 200 OK response
+        response = make_response()
+        response.status_code = 200
+        return response
+    except Exception as e:
+        response = jsonify({'error': str(e)})
+        response.status_code = 500
+        return response
 
 if __name__ == '__main__':
     app.run(debug=True)
