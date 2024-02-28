@@ -106,7 +106,15 @@ if __name__ == '__main__':
 
 
 
-
+# axios.get('http://localhost:5000/get-madrid-museums-data')
+#   .then(response => {
+#     // The response data contains the filtered museums data
+#     const museums = response.data;
+#     // Process the data as needed
+#   })
+#   .catch(error => {
+#     // Handle any errors
+#   });
 
 
 
