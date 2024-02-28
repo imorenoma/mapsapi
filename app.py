@@ -9,7 +9,7 @@ from k8s import credfirestore
 
 # firebase_admin.initialize_app(cred)
 
-# db = firestore.client()
+db = firestore.client()
 
 app = Flask(__name__)
 
