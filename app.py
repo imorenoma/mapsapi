@@ -2,6 +2,7 @@ from flask import  Flask, request, render_template,jsonify, make_response
 import firebase_admin
 from firebase_admin import credentials, firestore
 from k8s import credfirestore
+import requests
 
 # last_credentials = credfirestore.firebase_cred()
 
@@ -88,6 +89,16 @@ def  logout():
         response = jsonify({'error': str(e)})
         response.status_code = 500
         return response
+
+@app.route('get-madrid-museum-data', methods=['GET'])
+def get_madrid_museums_data():
+    url = 'https://datos.madrid.es/egob/catalogo/201132-0-museos.json'
+    response= requests.get(url=url, headers='Accept: application/json')
+    data=response.json()
+
+    museum_data = [{'title': item['title'], 'address': item['street-address']} for item in data]
+
+    return jsonify(museum_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
