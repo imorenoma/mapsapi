@@ -4,13 +4,12 @@ from firebase_admin import credentials, firestore
 from k8s import credfirestore
 import requests
 
-# last_credentials = credfirestore.firebase_cred()
 
-# cred = credentials.Certificate(last_credentials)
 
-# firebase_admin.initialize_app(cred)
-
-# db = firestore.client()
+cred_data = credfirestore.firebase_cred()
+cred = credentials.Certificate(cred_data)
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 app = Flask(__name__)
 
