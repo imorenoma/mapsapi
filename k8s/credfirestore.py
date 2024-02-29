@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 import os
-import json
+
 
 load_dotenv()
 
@@ -37,6 +37,5 @@ def firebase_cred():
         'client_X509_cert_url': FIRESTORE_CLIENT_X509_CERT_URL,
         'universe_domain': FIRESTORE_UNIVERSE_DOMAIN
     }
-
-    cred = json.dumps(cred,indent=4).replace('\\n', '\n')
+    
     return cred
