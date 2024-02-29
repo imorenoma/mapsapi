@@ -10,7 +10,7 @@ import requests
 
 # firebase_admin.initialize_app(cred)
 
-db = firestore.client()
+# db = firestore.client()
 
 app = Flask(__name__)
 
@@ -90,7 +90,7 @@ def  logout():
         response.status_code = 500
         return response
 
-@app.route('get-madrid-museum-data', methods=['GET'])
+@app.route('/get-madrid-museum-data', methods=['GET'])
 def get_madrid_museums_data():
     url = 'https://datos.madrid.es/egob/catalogo/201132-0-museos.json'
     response= requests.get(url=url, headers='Accept: application/json')
