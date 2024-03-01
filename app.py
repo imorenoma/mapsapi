@@ -5,7 +5,6 @@ from k8s import credfirestore
 import requests
 
 
-
 cred_data = credfirestore.firebase_cred()
 cred = credentials.Certificate(cred_data)
 firebase_admin.initialize_app(cred)
@@ -15,7 +14,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # return render_template('index.html')
+    return "Welcome to citySights API"
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -44,7 +44,7 @@ def register():
         response.status_code = 400
         return response
 
-@app.route( '/login', methods=[ 'POST' ] )
+@app.route( '/login', methods=['POST'] )
 def login():
     data = request.json
     mail = data['mail']
@@ -84,6 +84,7 @@ def  logout():
         response = make_response()
         response.status_code = 200
         return response
+    
     except Exception as e:
         response = jsonify({'error': str(e)})
         response.status_code = 500
@@ -99,21 +100,9 @@ def get_madrid_museums_data():
 
     return jsonify(museum_data)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
 
-
-
-
-# axios.get('http://localhost:5000/get-madrid-museums-data')
-#   .then(response => {
-#     // The response data contains the filtered museums data
-#     const museums = response.data;
-#     // Process the data as needed
-#   })
-#   .catch(error => {
-#     // Handle any errors
-#   });
 
 
 
