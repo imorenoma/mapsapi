@@ -93,12 +93,25 @@ def  logout():
 @app.route('/get-madrid-museum-data', methods=['GET'])
 def get_madrid_museums_data():
     url = 'https://datos.madrid.es/egob/catalogo/201132-0-museos.json'
-    response= requests.get(url=url, headers='Accept: application/json')
-    data=response.json()
+    response = requests.get(url=url, headers={'Accept': 'application/json'})
+    data = response.json()
+    museums_data = []
+ 
+    for item in data['@graph'][:4]:
+        title = item.get('title', '')
+        street_address = item.get('address', {}).get('street-address', '')
+        museum_data = {'title': title, 'street_address': street_address}
+        museums_data.append(museum_data)
+ 
+    return jsonify(museums_data)
 
-    museum_data = [{'title': item['title'], 'address': item['street-address']} for item in data]
-
-    return jsonify(museum_data)
+@app.route("/monuments",methods=["GET"])
+def monuments():
+    url = 'https://datos.madrid.es/egob/catalogo/300356-0-monumentos-ciudad-madrid.json'
+    response = requests.get(url=url, headers={'Accept': 'application/json'})
+    data = response.json()
+    monuments = [{'title': item['title'], 'street-address': item['address']['street-address']} for item in data['@graph']]
+    return jsonify(monuments)
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
