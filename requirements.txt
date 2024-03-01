@@ -51,3 +51,4 @@ Tree==0.2.4
 uritemplate==4.1.1
 urllib3==2.2.1
 Werkzeug==3.0.1
+gunicorn=21.2.0
